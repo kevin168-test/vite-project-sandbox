@@ -1,34 +1,39 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Inter", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  font-size: 18px; /* Larger base font for iPad */
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@media (min-width: 1024px) {
+  :root {
+    font-size: 20px; /* Even larger for iPad Pro / Desktop */
+  }
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  user-select: none; /* Basic protection as requested */
+  background-color: #0f172a; /* slate-900 */
+  color: #f8fafc; /* slate-50 */
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Better touch targets for iPad */
+button {
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 /* Global protection */
 * {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 

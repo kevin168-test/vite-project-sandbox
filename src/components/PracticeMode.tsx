@@ -93,29 +93,34 @@ const PracticeMode: React.FC = () => {
   const q = questions[currentIndex];
 
   return (
-    <div className="py-10">
-      <div className="flex justify-between items-center mb-6">
-        <div className="text-lg font-bold text-yellow-500">⚡ 快速刷題 (第 {currentIndex + 1} / 25 題)</div>
-        <button onClick={() => navigate('/')} className="text-gray-400 hover:text-white">退出</button>
+    <div className="py-6 sm:py-10 max-w-3xl mx-auto px-4">
+      <div className="flex justify-between items-center mb-6 sm:mb-10">
+        <div className="text-xl sm:text-2xl font-bold text-yellow-500 flex items-center gap-2">
+          ⚡ 快速刷題 <span className="text-sm sm:text-base text-gray-500 font-normal">(第 {currentIndex + 1} / 25 題)</span>
+        </div>
+        <button onClick={() => navigate('/')} className="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm font-bold transition">退出</button>
       </div>
 
-      <div className="bg-gray-800 p-8 rounded-2xl shadow-xl mb-6 border border-gray-700 min-h-[400px]">
-        <h2 className="text-xl font-bold mb-8 leading-relaxed">{q.question}</h2>
-        <div className="grid grid-cols-1 gap-4">
+      <div className="bg-slate-800 p-6 sm:p-10 rounded-3xl shadow-2xl mb-8 border border-slate-700">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-10 leading-snug text-slate-100">{q.question}</h2>
+        <div className="flex flex-col gap-4 sm:gap-6">
           {['A', 'B', 'C', 'D'].map((opt) => {
-            let bgColor = 'bg-gray-900/30';
-            let borderColor = 'border-gray-700';
+            let bgColor = 'bg-slate-900/50';
+            let borderColor = 'border-slate-700';
+            let textColor = 'text-slate-200';
             
             if (selectedOption) {
               if (opt === q.answer) {
-                bgColor = 'bg-green-900/40';
-                borderColor = 'border-green-500';
+                bgColor = 'bg-emerald-900/40';
+                borderColor = 'border-emerald-500';
+                textColor = 'text-emerald-400 font-bold';
               } else if (opt === selectedOption) {
-                bgColor = 'bg-red-900/40';
-                borderColor = 'border-red-500';
+                bgColor = 'bg-rose-900/40';
+                borderColor = 'border-rose-500';
+                textColor = 'text-rose-400 font-bold';
               }
             } else {
-              borderColor = 'hover:border-gray-500';
+              borderColor = 'hover:border-slate-500 active:scale-[0.98]';
             }
 
             return (
@@ -123,43 +128,45 @@ const PracticeMode: React.FC = () => {
                 key={opt}
                 disabled={!!selectedOption}
                 onClick={() => handleSelect(opt)}
-                className={`text-left p-4 rounded-xl border-2 transition-all ${bgColor} ${borderColor}`}
+                className={`text-left p-5 sm:p-8 rounded-2xl border-2 transition-all duration-200 flex items-start gap-4 ${bgColor} ${borderColor} ${textColor}`}
               >
-                <span className="font-bold mr-4">{opt}.</span>
-                {(q as any)[opt]}
+                <span className="text-xl sm:text-2xl opacity-60 font-mono mt-0.5">{opt}</span>
+                <span className="text-lg sm:text-xl leading-relaxed">{(q as any)[opt]}</span>
               </button>
             );
           })}
         </div>
 
         {showExplanation && (
-          <div className="mt-8 animate-in fade-in slide-in-from-top-4">
-            <div className="bg-gray-900 p-6 rounded-xl border border-gray-700">
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-green-400 font-bold">✅ 正確答案：{q.answer}</span>
+          <div className="mt-10 pt-10 border-t border-slate-700 animate-in fade-in slide-in-from-top-4">
+            <div className="bg-slate-900/80 p-6 sm:p-8 rounded-2xl border border-slate-600">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                <span className="text-emerald-400 text-xl font-black px-4 py-1 bg-emerald-400/10 rounded-full">
+                  ✅ 正確答案：{q.answer}
+                </span>
                 <button 
                   onClick={callGemini}
-                  className="bg-purple-600 hover:bg-purple-500 px-3 py-1 rounded text-xs font-bold transition"
+                  className="bg-indigo-600 hover:bg-indigo-500 px-5 py-2 rounded-xl text-sm font-bold shadow-lg transition"
                 >
                   🤖 呼叫 Gemini 家教
                 </button>
               </div>
-              <p className="text-gray-300 text-sm whitespace-pre-wrap">
-                <span className="font-bold text-white">💡 專業解析：</span><br/>
-                {q.explanation}
-              </p>
+              <div className="text-slate-300 text-lg sm:text-xl leading-loose">
+                <span className="font-bold text-slate-100 mb-2 block">💡 專業解析：</span>
+                <div className="whitespace-pre-wrap">{q.explanation}</div>
+              </div>
             </div>
             
-            <div className="mt-6 flex justify-end items-center gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row justify-end items-center gap-6">
               {autoNextTimer !== null && (
-                <span className="text-gray-400 text-sm italic">
+                <span className="text-slate-400 text-lg italic bg-slate-800 px-4 py-2 rounded-full border border-slate-700">
                   {Math.ceil(autoNextTimer / 10)} 秒後自動跳轉...
-                  <button onClick={cancelAutoNext} className="ml-2 underline">暫停</button>
+                  <button onClick={cancelAutoNext} className="ml-3 text-indigo-400 font-bold underline">暫停</button>
                 </span>
               )}
               <button
                 onClick={handleNext}
-                className="bg-blue-600 hover:bg-blue-500 px-8 py-2 rounded-lg font-bold transition"
+                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 px-12 py-4 rounded-2xl text-xl font-bold shadow-xl transition active:scale-95"
               >
                 下一題
               </button>

@@ -42,31 +42,52 @@ const Home: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center py-10">
-      <h1 className="text-4xl font-extrabold mb-4 text-center">🌲 森林法規與保育 🌲</h1>
-      <p className="text-gray-400 mb-10 text-center max-w-lg">
-        專為森林護管員考試設計的離線刷題系統。動態權重演算法，精準鎖定你的弱點。
-      </p>
+    <div className="flex flex-col items-center py-6 sm:py-12 px-4 max-w-4xl mx-auto">
+      <div className="text-center mb-10 sm:mb-16">
+        <h1 className="text-4xl sm:text-6xl font-black mb-6 tracking-tight bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
+          森林法規與保育
+        </h1>
+        <p className="text-slate-400 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
+          專為森林護管員考試設計。動態權重演算法，精準鎖定你的弱點。
+        </p>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+      <div className="grid grid-cols-1 gap-6 w-full">
         {modes.map((mode) => (
           <button
             key={mode.path}
             onClick={() => navigate(mode.path)}
-            className={`${mode.color} p-6 rounded-2xl shadow-xl transition-all transform hover:scale-105 text-left flex flex-col h-full`}
+            className={`${mode.color} p-6 sm:p-10 rounded-[2rem] shadow-2xl transition-all transform active:scale-[0.97] text-left flex items-center gap-6 group`}
           >
-            <span className="text-4xl mb-4">{mode.icon}</span>
-            <h2 className="text-2xl font-bold mb-2">{mode.title}</h2>
-            <p className="text-white/80 text-sm flex-grow">{mode.description}</p>
+            <span className="text-5xl sm:text-6xl group-hover:scale-110 transition-transform">{mode.icon}</span>
+            <div className="flex-grow">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-white">{mode.title}</h2>
+              <p className="text-white/70 text-base sm:text-lg">{mode.description}</p>
+            </div>
+            <span className="text-3xl opacity-30 group-hover:opacity-100 transition-opacity">→</span>
           </button>
         ))}
       </div>
       
-      <div className="mt-12 bg-gray-800 p-6 rounded-xl w-full border border-gray-700">
-        <h3 className="text-xl font-bold mb-4">📊 學習概況</h3>
-        <p className="text-gray-400">目前題庫總數: <span className="text-white font-bold">{stats.total}</span></p>
-        <p className="text-gray-400">已掌握題目: <span className="text-green-400 font-bold">{stats.mastered}</span></p>
-        <p className="text-gray-400">需加強題目: <span className="text-red-400 font-bold">{stats.weak}</span></p>
+      <div className="mt-12 sm:mt-16 bg-slate-800/50 backdrop-blur-xl p-8 sm:p-10 rounded-[2.5rem] w-full border border-slate-700 shadow-inner">
+        <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
+          <span className="bg-emerald-500/20 p-2 rounded-lg text-emerald-400">📊</span>
+          學習概況
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+            <p className="text-slate-500 text-sm mb-1 font-bold uppercase tracking-wider">目前題庫總數</p>
+            <p className="text-4xl font-black text-white">{stats.total}</p>
+          </div>
+          <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+            <p className="text-slate-500 text-sm mb-1 font-bold uppercase tracking-wider">已掌握題目</p>
+            <p className="text-4xl font-black text-emerald-400">{stats.mastered}</p>
+          </div>
+          <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+            <p className="text-slate-500 text-sm mb-1 font-bold uppercase tracking-wider">需加強題目</p>
+            <p className="text-4xl font-black text-rose-400">{stats.weak}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
