@@ -19,7 +19,7 @@ const App: React.FC = () => {
       const count = await db.questions.count();
       if (count === 0) {
         try {
-          const response = await fetch('/questions.enc');
+          const response = await fetch('./questions.enc');
           if (response.ok) {
             const encryptedData = await response.text();
             const decrypted = decryptData(encryptedData);
