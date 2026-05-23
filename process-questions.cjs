@@ -21,7 +21,12 @@ const files = [
 const questions = [];
 
 files.forEach(file => {
-    const content = fs.readFileSync(file, 'utf8');
+    const filePath = path.join('..', file);
+    if (!fs.existsSync(filePath)) {
+        console.warn(`⚠️ Warning: File not found: ${filePath}`);
+        return;
+    }
+    const content = fs.readFileSync(filePath, 'utf8');
     const sections = content.split('---');
     
     sections.forEach(section => {
