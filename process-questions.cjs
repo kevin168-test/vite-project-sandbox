@@ -64,5 +64,5 @@ files.forEach(file => {
 console.log(`Parsed ${questions.length} questions.`);
 
 const encrypted = CryptoJS.AES.encrypt(JSON.stringify(questions), SECRET_KEY).toString();
-fs.writeFileSync('forest-exam-app/public/questions.enc', encrypted);
-console.log('Saved to forest-exam-app/public/questions.enc');
+fs.writeFileSync('public/questions.enc', encrypted);
+console.log('Saved to public/questions.enc');
