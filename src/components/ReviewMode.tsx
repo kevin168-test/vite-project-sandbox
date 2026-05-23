@@ -60,15 +60,15 @@ const ReviewMode: React.FC = () => {
   const q = questions[currentIndex];
 
   return (
-    <div className="py-10">
-      <div className="flex justify-between items-center mb-6">
+    <div className="py-4 sm:py-6 max-w-3xl mx-auto px-4">
+      <div className="flex justify-between items-center mb-4 sm:mb-6">
         <div className="text-lg font-bold text-red-500">🔄 錯題複習 (第 {currentIndex + 1} / {questions.length} 題)</div>
-        <button onClick={() => navigate('/')} className="text-gray-400 hover:text-white">退出</button>
+        <button onClick={() => navigate('/')} className="text-gray-400 hover:text-white text-sm">退出</button>
       </div>
 
-      <div className="bg-gray-800 p-8 rounded-2xl shadow-xl mb-6 border border-gray-700 min-h-[400px]">
-        <h2 className="text-xl font-bold mb-8 leading-relaxed">{q.question}</h2>
-        <div className="grid grid-cols-1 gap-4">
+      <div className="bg-gray-800 p-5 sm:p-8 rounded-2xl shadow-xl mb-6 border border-gray-700 min-h-[300px]">
+        <h2 className="text-lg sm:text-xl font-bold mb-6 leading-relaxed text-slate-100">{q.question}</h2>
+        <div className="grid grid-cols-1 gap-3">
           {['A', 'B', 'C', 'D'].map((opt) => {
             let bgColor = 'bg-gray-900/30';
             let borderColor = 'border-gray-700';
@@ -86,28 +86,28 @@ const ReviewMode: React.FC = () => {
                 key={opt}
                 disabled={!!selectedOption}
                 onClick={() => handleSelect(opt)}
-                className={`text-left p-4 rounded-xl border-2 transition-all ${bgColor} ${borderColor}`}
+                className={`text-left p-3.5 sm:p-4 rounded-xl border-2 transition-all flex items-start gap-3 ${bgColor} ${borderColor}`}
               >
-                <span className="font-bold mr-4">{opt}.</span>
-                {(q as any)[opt]}
+                <span className="font-mono opacity-60 font-bold">{opt}</span>
+                <span className="text-base sm:text-lg">{(q as any)[opt]}</span>
               </button>
             );
           })}
         </div>
 
         {showExplanation && (
-          <div className="mt-8">
-            <div className="bg-gray-900 p-6 rounded-xl border border-gray-700">
-              <span className="text-green-400 font-bold mb-2 block">✅ 正確答案：{q.answer}</span>
-              <p className="text-gray-300 text-sm whitespace-pre-wrap">
-                <span className="font-bold text-white">💡 專業解析：</span><br/>
+          <div className="mt-6 pt-6 border-t border-gray-700">
+            <div className="bg-gray-900 p-4 sm:p-6 rounded-xl border border-gray-700">
+              <span className="text-green-400 font-bold mb-1 block text-lg">✅ 正確答案：{q.answer}</span>
+              <div className="text-gray-300 text-base sm:text-lg whitespace-pre-wrap leading-relaxed">
+                <span className="font-bold text-white mb-1 block">💡 專業解析：</span>
                 {q.explanation}
-              </p>
+              </div>
             </div>
             <div className="mt-6 flex justify-end">
               <button
                 onClick={handleNext}
-                className="bg-blue-600 hover:bg-blue-500 px-8 py-2 rounded-lg font-bold transition"
+                className="bg-blue-600 hover:bg-blue-500 px-8 py-2 rounded-lg font-bold transition active:scale-95"
               >
                 下一題
               </button>

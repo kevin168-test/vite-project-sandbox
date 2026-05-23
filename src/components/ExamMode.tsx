@@ -113,35 +113,35 @@ const ExamMode: React.FC = () => {
 
   const q = questions[currentIndex];
   return (
-    <div className="py-4 sm:py-8 max-w-4xl mx-auto px-4">
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 sm:mb-10 bg-slate-800 p-6 rounded-3xl sticky top-20 z-10 border border-slate-700 shadow-xl">
-        <div className="text-xl font-bold text-slate-300">第 {currentIndex + 1} / 50 題</div>
-        <div className={`text-3xl font-black font-mono ${timeLeft < 300 ? 'text-rose-500 animate-pulse' : 'text-emerald-400'}`}>
+    <div className="py-2 sm:py-4 max-w-4xl mx-auto px-4">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mb-4 sm:mb-6 bg-slate-800 p-4 rounded-2xl sticky top-20 z-10 border border-slate-700 shadow-xl">
+        <div className="text-lg font-bold text-slate-300">第 {currentIndex + 1} / 50 題</div>
+        <div className={`text-2xl font-black font-mono ${timeLeft < 300 ? 'text-rose-500 animate-pulse' : 'text-emerald-400'}`}>
           ⏱️ {formatTime(timeLeft)}
         </div>
         <button 
           onClick={handleSubmit}
-          className="w-full sm:w-auto bg-rose-600 hover:bg-rose-500 px-6 py-2 rounded-xl font-bold transition shadow-lg active:scale-95"
+          className="w-full sm:w-auto bg-rose-600 hover:bg-rose-500 px-5 py-1.5 rounded-lg font-bold transition shadow-lg active:scale-95 text-sm"
         >
           結束交卷
         </button>
       </div>
 
-      <div className="bg-slate-800 p-6 sm:p-10 rounded-3xl shadow-2xl mb-8 border border-slate-700 min-h-[450px]">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-10 leading-snug text-slate-100">{q.question}</h2>
-        <div className="flex flex-col gap-4">
+      <div className="bg-slate-800 p-5 sm:p-8 rounded-2xl shadow-2xl mb-6 border border-slate-700 min-h-[350px]">
+        <h2 className="text-xl sm:text-2xl font-bold mb-6 leading-snug text-slate-100">{q.question}</h2>
+        <div className="flex flex-col gap-3">
           {['A', 'B', 'C', 'D'].map((opt) => (
             <button
               key={opt}
               onClick={() => handleSelect(opt)}
-              className={`text-left p-6 sm:p-8 rounded-2xl border-2 transition-all flex items-start gap-4 ${
+              className={`text-left p-4 sm:p-5 rounded-xl border-2 transition-all flex items-start gap-3 ${
                 userAnswers[q.id!] === opt 
                 ? 'border-emerald-500 bg-emerald-900/30 text-emerald-400' 
                 : 'border-slate-700 hover:border-slate-500 bg-slate-900/40 text-slate-300'
               }`}
             >
-              <span className="text-xl font-mono opacity-50">{opt}</span>
-              <span className="text-lg sm:text-xl">{(q as any)[opt]}</span>
+              <span className="text-lg font-mono opacity-50">{opt}</span>
+              <span className="text-base sm:text-lg">{(q as any)[opt]}</span>
             </button>
           ))}
         </div>
@@ -151,22 +151,22 @@ const ExamMode: React.FC = () => {
         <button
           disabled={currentIndex === 0}
           onClick={() => setCurrentIndex(currentIndex - 1)}
-          className="bg-slate-700 hover:bg-slate-600 px-8 py-3 rounded-2xl disabled:opacity-20 transition active:scale-95 font-bold"
+          className="bg-slate-700 hover:bg-slate-600 px-6 py-2 rounded-xl disabled:opacity-20 transition active:scale-95 font-bold text-sm"
         >
           ← 上一題
         </button>
-        <div className="hidden sm:flex gap-1.5 flex-wrap justify-center max-w-[40%]">
+        <div className="hidden sm:flex gap-1 flex-wrap justify-center max-w-[40%]">
           {questions.map((_, idx) => (
             <div 
               key={idx}
-              className={`w-2.5 h-2.5 rounded-full ${userAnswers[questions[idx].id!] ? 'bg-emerald-500' : 'bg-slate-700'}`}
+              className={`w-2 h-2 rounded-full ${userAnswers[questions[idx].id!] ? 'bg-emerald-500' : 'bg-slate-700'}`}
             />
           ))}
         </div>
         <button
           disabled={currentIndex === questions.length - 1}
           onClick={() => setCurrentIndex(currentIndex + 1)}
-          className="bg-slate-700 hover:bg-slate-600 px-8 py-3 rounded-2xl disabled:opacity-20 transition active:scale-95 font-bold"
+          className="bg-slate-700 hover:bg-slate-600 px-6 py-2 rounded-xl disabled:opacity-20 transition active:scale-95 font-bold text-sm"
         >
           下一題 →
         </button>

@@ -37,6 +37,10 @@ files.forEach(file => {
         const metaMatch = section.match(/`#(.*?)年`\s*`#題號_(.*?)`\s*`#(.*?)`/);
 
         if (qMatch && ansMatch) {
+            let explanation = expMatch ? expMatch[1].trim() : '';
+            // Remove the leading '> ' from each line in explanation
+            explanation = explanation.split('\n').map(line => line.replace(/^>\s?/, '')).join('\n').trim();
+
             questions.push({
                 question: qMatch[1].trim(),
                 A: aMatch ? aMatch[1].trim() : '',
@@ -44,7 +48,7 @@ files.forEach(file => {
                 C: cMatch ? cMatch[1].trim() : '',
                 D: dMatch ? dMatch[1].trim().split('\n')[0].trim() : '',
                 answer: ansMatch[1],
-                explanation: expMatch ? expMatch[1].trim() : '',
+                explanation: explanation,
                 year: metaMatch ? metaMatch[1] : '',
                 category: metaMatch ? metaMatch[3] : '一般'
             });
